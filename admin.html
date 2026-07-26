@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Clean — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0F14; --bg-2:#121821; --bg-3:#1A2431; --ink:#F3F6F8; --slate:#93A1AC;
+    --line:#232E3B; --accent:#3E9BE9; --accent-2:#79C6F5; --accent-dim:rgba(62,155,233,0.14);
+    --font-main:'Noto Sans',sans-serif; --font-mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:var(--font-main); background:var(--bg); color:var(--ink); min-height:100vh;}
+  .wrap{max-width:1200px; margin:0 auto; padding:32px 24px;}
+
+  /* ---- Gate ---- */
+  #gate{display:flex; align-items:center; justify-content:center; min-height:100vh; padding:24px;}
+  .gate-card{background:var(--bg-2); border:1px solid var(--line); border-radius:16px; padding:40px; max-width:360px; width:100%; text-align:center;}
+  .gate-card h1{font-size:20px; margin:0 0 8px;}
+  .gate-card p{color:var(--slate); font-size:13.5px; margin:0 0 22px;}
+  .gate-card input{width:100%; padding:12px 14px; border-radius:10px; border:1.5px solid var(--line); background:var(--bg-3); color:var(--ink); font-size:15px; margin-bottom:14px; font-family:var(--font-main);}
+  .gate-card button{width:100%; padding:12px; border-radius:10px; border:none; background:var(--accent); color:var(--bg); font-weight:700; font-size:14.5px; cursor:pointer;}
+  .gate-error{color:#ffb3b3; font-size:13px; margin-top:12px; display:none;}
+  .gate-note{margin-top:18px; font-size:11.5px; color:var(--slate); line-height:1.6;}
+
+  /* ---- Dashboard ---- */
+  #dashboard{display:none;}
+  header{display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;}
+  header h1{font-size:22px; margin:0;}
+  header p{color:var(--slate); font-size:13px; margin:4px 0 0;}
+  .actions{display:flex; gap:10px;}
+  button.pill{background:var(--bg-2); border:1px solid var(--line); color:var(--ink); padding:9px 16px; border-radius:999px; font-size:13.5px; font-weight:600; cursor:pointer;}
+  button.pill:hover{border-color:var(--accent);}
+  input#search{padding:10px 14px; border-radius:10px; border:1.5px solid var(--line); background:var(--bg-2); color:var(--ink); font-size:14px; width:240px; font-family:var(--font-main);}
+
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px;}
+  @media(max-width:700px){.stats{grid-template-columns:1fr 1fr;}}
+  .stat{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:16px 18px;}
+  .stat .num{font-family:var(--font-mono); font-size:24px; font-weight:600; color:var(--accent-2);}
+  .stat .label{font-size:12px; color:var(--slate); margin-top:4px;}
+
+  table{width:100%; border-collapse:collapse; background:var(--bg-2); border:1px solid var(--line); border-radius:12px; overflow:hidden; font-size:13.5px;}
+  thead th{text-align:left; padding:12px 14px; background:var(--bg-3); color:var(--slate); font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; font-family:var(--font-mono); font-weight:600; white-space:nowrap;}
+  tbody td{padding:12px 14px; border-top:1px solid var(--line); vertical-align:top;}
+  tbody tr:hover{background:rgba(255,255,255,.02);}
+  .badge{display:inline-block; padding:3px 9px; border-radius:999px; font-size:11px; font-weight:600; background:var(--accent-dim); color:var(--accent-2); white-space:nowrap;}
+  .empty{text-align:center; padding:60px 20px; color:var(--slate);}
+  .table-scroll{overflow-x:auto;}
+  .loading{text-align:center; padding:60px; color:var(--slate);}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-card">
+    <h1>Apex Clean — Admin</h1>
+    <p>Enter the access code to view bookings.</p>
+    <input type="password" id="passcodeInput" placeholder="Access code">
+    <button id="gateBtn">Enter</button>
+    <div class="gate-error" id="gateError">Incorrect code, try again.</div>
+    <div class="gate-note">
+      This is a light access gate, not secure authentication — anyone with the code and a link to this page can view bookings. Real access control lives in your Google Sheet's sharing settings (see setup notes in the site instructions).
+    </div>
+  </div>
+</div>
+
+<div id="dashboard">
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Bookings</h1>
+        <p id="lastUpdated">Not loaded yet</p>
+      </div>
+      <div class="actions">
+        <input type="text" id="search" placeholder="Search name, phone, area...">
+        <button class="pill" id="refreshBtn">Refresh</button>
+      </div>
+    </header>
+
+    <div class="stats">
+      <div class="stat"><div class="num" id="statTotal">0</div><div class="label">Total bookings</div></div>
+      <div class="stat"><div class="num" id="statTbilisi">0</div><div class="label">In Tbilisi</div></div>
+      <div class="stat"><div class="num" id="statRustavi">0</div><div class="label">In Rustavi</div></div>
+      <div class="stat"><div class="num" id="statToday">0</div><div class="label">Submitted today</div></div>
+    </div>
+
+    <div class="table-scroll">
+      <table id="bookingsTable">
+        <thead>
+          <tr>
+            <th>Submitted</th><th>Name</th><th>Phone</th><th>Service</th><th>Area</th>
+            <th>Address</th><th>Entrance</th><th>Apt</th><th>Code</th><th>Date</th><th>Time</th><th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="bookingsBody"></tbody>
+      </table>
+      <div class="empty" id="emptyState" style="display:none;">No bookings yet.</div>
+      <div class="loading" id="loadingState">Loading bookings…</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script>
+/* =================================================================
+   SETUP — replace these two values. See the site setup instructions
+   for how to get the CSV URL (Google Sheet > Share > Publish to web)
+   and choose your own access code.
+   ================================================================= */
+const SHEET_CSV_URL = "YOUR_PUBLISHED_SHEET_CSV_URL";
+const ACCESS_CODE = "changeme";
+
+const gate = document.getElementById('gate');
+const dashboard = document.getElementById('dashboard');
+const gateBtn = document.getElementById('gateBtn');
+const passcodeInput = document.getElementById('passcodeInput');
+const gateError = document.getElementById('gateError');
+
+let allRows = [];
+
+function tryEnter(){
+  if (passcodeInput.value === ACCESS_CODE){
+    gate.style.display = 'none';
+    dashboard.style.display = 'block';
+    loadBookings();
+  } else {
+    gateError.style.display = 'block';
+  }
+}
+gateBtn.addEventListener('click', tryEnter);
+passcodeInput.addEventListener('keydown', e=>{ if(e.key==='Enter') tryEnter(); });
+
+function loadBookings(){
+  document.getElementById('loadingState').style.display = 'block';
+  document.getElementById('emptyState').style.display = 'none';
+
+  if (SHEET_CSV_URL === "YOUR_PUBLISHED_SHEET_CSV_URL"){
+    document.getElementById('loadingState').textContent = "Not connected yet — paste your published Google Sheet CSV URL into admin.html.";
+    return;
+  }
+
+  Papa.parse(SHEET_CSV_URL, {
+    download: true,
+    header: true,
+    skipEmptyLines: true,
+    complete: function(results){
+      allRows = results.data.reverse(); // newest first
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('lastUpdated').textContent = "Last updated " + new Date().toLocaleTimeString();
+      render(allRows);
+    },
+    error: function(){
+      document.getElementById('loadingState').textContent = "Couldn't load the sheet. Check the CSV URL and that the sheet is published.";
+    }
+  });
+}
+
+function render(rows){
+  const tbody = document.getElementById('bookingsBody');
+  tbody.innerHTML = '';
+  document.getElementById('emptyState').style.display = rows.length ? 'none' : 'block';
+
+  const today = new Date().toISOString().slice(0,10);
+  let tbilisiCount = 0, rustaviCount = 0, todayCount = 0;
+
+  rows.forEach(r=>{
+    const area = (r.area || '').toLowerCase();
+    if (area.includes('tbilisi') || area.includes('тбилис')) tbilisiCount++;
+    if (area.includes('rustavi') || area.includes('руста')) rustaviCount++;
+    if ((r.submittedAt||'').slice(0,10) === today) todayCount++;
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${formatDate(r.submittedAt)}</td>
+      <td>${escapeHtml(r.name)}</td>
+      <td>${escapeHtml(r.phone)}</td>
+      <td><span class="badge">${escapeHtml(r.service)}</span></td>
+      <td>${escapeHtml(r.area)}</td>
+      <td>${escapeHtml(r.address)}</td>
+      <td>${escapeHtml(r.entrance)}</td>
+      <td>${escapeHtml(r.apartment)}</td>
+      <td>${escapeHtml(r.code)}</td>
+      <td>${escapeHtml(r.date)}</td>
+      <td>${escapeHtml(r.time)}</td>
+      <td>${escapeHtml(r.notes)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('statTotal').textContent = rows.length;
+  document.getElementById('statTbilisi').textContent = tbilisiCount;
+  document.getElementById('statRustavi').textContent = rustaviCount;
+  document.getElementById('statToday').textContent = todayCount;
+}
+
+function formatDate(iso){
+  if(!iso) return '-';
+  const d = new Date(iso);
+  if(isNaN(d)) return iso;
+  return d.toLocaleDateString('en-GB') + ' ' + d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+}
+function escapeHtml(v){
+  if(v===undefined || v===null) return '-';
+  return String(v).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+document.getElementById('refreshBtn').addEventListener('click', loadBookings);
+document.getElementById('search').addEventListener('input', function(e){
+  const q = e.target.value.toLowerCase();
+  const filtered = allRows.filter(r =>
+    Object.values(r).some(v => String(v||'').toLowerCase().includes(q))
+  );
+  render(filtered);
+});
+</script>
+</body>
+</html>

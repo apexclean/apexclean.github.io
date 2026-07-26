@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Clean — AC & Upholstery Cleaning in Tbilisi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0F14;
+    --bg-2:#121821;
+    --bg-3:#1A2431;
+    --ink:#F3F6F8;
+    --slate:#93A1AC;
+    --line:#232E3B;
+    --accent:#3E9BE9;
+    --accent-2:#79C6F5;
+    --accent-dim:rgba(62,155,233,0.14);
+    --overlay-soft:rgba(255,255,255,.03);
+    --overlay-mid:rgba(255,255,255,.06);
+    --tag-neutral:rgba(255,255,255,.12);
+    --white:#FFFFFF;
+    --radius:14px;
+    --font-main:'Noto Sans','Noto Sans Georgian',sans-serif;
+    --font-mono:'IBM Plex Mono',monospace;
+  }
+  [data-theme="light"]{
+    --bg:#F5F8FA;
+    --bg-2:#FFFFFF;
+    --bg-3:#EDF2F5;
+    --ink:#12181B;
+    --slate:#5B6B76;
+    --line:#DCE3E8;
+    --accent:#1E7FD6;
+    --accent-2:#0F63B0;
+    --accent-dim:rgba(30,127,214,0.10);
+    --overlay-soft:rgba(0,0,0,.03);
+    --overlay-mid:rgba(0,0,0,.05);
+    --tag-neutral:rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  body{
+    margin:0; font-family:var(--font-main); background:var(--bg); color:var(--ink);
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
+  section{padding:96px 0;}
+  @media (max-width:720px){ section{padding:64px 0;} }
+
+  /* ---------- NAV ---------- */
+  header{position:sticky; top:0; z-index:50; background:rgba(11,15,20,0.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  nav.wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .logo{display:flex; align-items:center; gap:10px; font-weight:800; font-size:20px; letter-spacing:-0.02em; text-decoration:none; color:var(--ink);}
+  .logo-mark{width:32px; height:32px; border-radius:9px; background:linear-gradient(135deg,var(--bg-3),var(--accent)); display:flex; align-items:center; justify-content:center; border:1px solid var(--line);}
+  .logo-mark span{color:var(--white); font-size:15px; font-weight:800;}
+  .nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; font-size:14.5px; font-weight:600; color:var(--slate); transition:color .2s;}
+  .nav-links a:hover{color:var(--accent-2);}
+  .nav-right{display:flex; align-items:center; gap:14px;}
+  .lang-switch{display:flex; border:1px solid var(--line); border-radius:999px; padding:3px; background:var(--bg-2);}
+  .lang-switch button{border:none; background:transparent; padding:6px 12px; border-radius:999px; font-family:var(--font-mono); font-size:12.5px; font-weight:600; letter-spacing:.03em; cursor:pointer; color:var(--slate);}
+  .lang-switch button.active{background:var(--accent); color:var(--bg);}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 22px; border-radius:999px; font-weight:700; font-size:14.5px; text-decoration:none; border:none; cursor:pointer; transition:transform .15s, box-shadow .15s; font-family:var(--font-main);}
+  .btn:hover{transform:translateY(-1px);}
+  .btn:focus-visible{outline:3px solid var(--accent-2); outline-offset:2px;}
+  .btn-primary{background:var(--accent); color:var(--bg); box-shadow:0 6px 20px rgba(62,155,233,.28);}
+  .btn-primary:hover{background:var(--accent-2);}
+  .btn-ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--accent);}
+  .btn-block{width:100%;}
+  .btn[disabled]{opacity:.6; cursor:not-allowed; transform:none !important;}
+  .nav-cta{display:none;}
+  @media(min-width:640px){.nav-cta{display:inline-flex;}}
+  @media(max-width:900px){.nav-links{display:none;}}
+
+  /* ---------- HERO ---------- */
+  .hero{padding-top:64px; padding-bottom:80px; position:relative; overflow:hidden;}
+  .hero::before{content:""; position:absolute; inset:0; z-index:-1; background-image:radial-gradient(circle, var(--overlay-mid) 1px, transparent 1px); background-size:26px 26px; mask-image:linear-gradient(to bottom, black, transparent 85%);}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center;}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr;}}
+  .kicker{display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:12.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-2); background:var(--accent-dim); padding:7px 14px; border-radius:999px; margin-bottom:22px;}
+  .kicker::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--accent);}
+  h1{font-size:clamp(34px,5vw,54px); line-height:1.06; letter-spacing:-0.03em; font-weight:800; margin:0 0 20px; color:var(--ink);}
+  .hero p.lead{font-size:18px; color:var(--slate); max-width:480px; margin:0 0 32px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px;}
+  .hero-meta{display:flex; gap:22px; flex-wrap:wrap;}
+  .hero-meta div{display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--slate); font-weight:600;}
+  .hero-meta svg{width:16px; height:16px; flex-shrink:0; color:var(--accent-2);}
+
+  /* ---------- COMPARE SLIDER ---------- */
+  .compare-wrap{position:relative; border-radius:20px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.5); border:1px solid var(--line); background:var(--bg-2);}
+  .compare{position:relative; width:100%; aspect-ratio:6/5; overflow:hidden; cursor:ew-resize; user-select:none;}
+  .compare-layer{position:absolute; inset:0;}
+  .compare-layer svg{width:100%; height:100%;}
+  .compare-after{clip-path:inset(0 50% 0 0);}
+  .compare-handle{position:absolute; top:0; bottom:0; left:50%; width:2px; background:var(--white); transform:translateX(-50%); box-shadow:0 0 0 1px rgba(0,0,0,.2);}
+  .compare-grip{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:44px; height:44px; border-radius:50%; background:var(--bg-2); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; gap:2px; box-shadow:0 6px 18px rgba(0,0,0,.4);}
+  .compare-grip svg{width:14px; height:14px; color:var(--accent-2);}
+  .compare-tag{position:absolute; top:14px; padding:5px 12px; border-radius:999px; font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:.05em; text-transform:uppercase;}
+  .compare-tag.before-tag{left:14px; background:var(--tag-neutral); color:var(--ink);}
+  .compare-tag.after-tag{right:14px; background:var(--accent); color:var(--bg);}
+  .compare-range{position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:ew-resize; appearance:none;}
+  .compare-caption{display:flex; justify-content:space-between; align-items:center; padding:14px 18px; font-size:12.5px; color:var(--slate); font-weight:600; border-top:1px solid var(--line);}
+  .compare-caption span:first-child{font-family:var(--font-mono);}
+
+  /* ---------- TRUST BAR ---------- */
+  .trust-bar{background:var(--bg-2); padding:26px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .trust-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media(max-width:800px){.trust-grid{grid-template-columns:1fr 1fr;}}
+  .trust-item{display:flex; align-items:center; gap:10px; color:var(--ink);}
+  .trust-item svg{width:20px; height:20px; color:var(--accent-2); flex-shrink:0;}
+  .trust-item span{font-size:13.5px; font-weight:600;}
+
+  /* ---------- SECTION HEADS ---------- */
+  .section-head{max-width:620px; margin-bottom:52px;}
+  .eyebrow{font-family:var(--font-mono); font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-2); margin-bottom:12px; display:block;}
+  h2{font-size:clamp(26px,3.6vw,38px); letter-spacing:-0.02em; margin:0 0 14px; font-weight:800; color:var(--ink);}
+  .section-head p{color:var(--slate); font-size:16px; margin:0;}
+
+  /* ---------- SERVICES ---------- */
+  .cards{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  @media(max-width:980px){.cards{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:600px){.cards{grid-template-columns:1fr;}}
+  .card{background:var(--bg-2); border:1px solid var(--line); border-radius:var(--radius); padding:26px; display:flex; flex-direction:column; position:relative; transition:transform .2s, box-shadow .2s;}
+  .card:hover{transform:translateY(-4px); box-shadow:0 16px 34px rgba(0,0,0,.4);}
+  .card.featured{border-color:var(--accent); box-shadow:0 16px 34px rgba(62,155,233,.16);}
+  .card-badge{position:absolute; top:-11px; left:22px; background:var(--accent); color:var(--bg); font-family:var(--font-mono); font-size:11px; font-weight:700; letter-spacing:.04em; padding:4px 12px; border-radius:999px; text-transform:uppercase;}
+  .card h3{font-size:18px; margin:6px 0 8px; font-weight:700; color:var(--ink);}
+  .card p.desc{font-size:14px; color:var(--slate); margin:0 0 18px; flex-grow:1;}
+  .card ul{list-style:none; margin:0 0 20px; padding:0; display:flex; flex-direction:column; gap:8px;}
+  .card li{display:flex; gap:8px; font-size:13.5px; color:var(--ink);}
+  .card li svg{width:15px; height:15px; color:var(--accent-2); flex-shrink:0; margin-top:1px;}
+  .price{font-family:var(--font-mono); font-size:28px; font-weight:600; color:var(--accent-2); display:flex; align-items:baseline; gap:6px; margin-bottom:16px;}
+  .price span{font-size:13px; font-weight:500; color:var(--slate);}
+  .card.dim{background:var(--bg-3); border-style:dashed;}
+  .card.dim h3, .card.dim .price{color:var(--slate);}
+  .soon-badge{display:inline-block; font-family:var(--font-mono); font-size:11px; font-weight:600; background:var(--bg); border:1px solid var(--line); color:var(--slate); padding:4px 10px; border-radius:999px; margin-bottom:10px; width:fit-content; letter-spacing:.04em; text-transform:uppercase;}
+
+  /* ---------- PROCESS ---------- */
+  .process-section{background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .process-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0;}
+  @media(max-width:860px){.process-grid{grid-template-columns:repeat(2,1fr); gap:32px;}}
+  @media(max-width:520px){.process-grid{grid-template-columns:1fr;}}
+  .step{padding:0 20px 0 0; position:relative;}
+  .step:not(:last-child)::after{content:""; position:absolute; top:22px; right:-2px; width:calc(100% - 44px); height:2px; background:repeating-linear-gradient(to right,var(--line) 0 6px, transparent 6px 12px);}
+  @media(max-width:860px){.step::after{display:none;}}
+  .step-num{font-family:var(--font-mono); font-size:14px; font-weight:700; color:var(--bg); background:var(--accent); width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:18px;}
+  .step h3{font-size:16.5px; margin:0 0 8px; font-weight:700; color:var(--ink);}
+  .step p{font-size:14px; color:var(--slate); margin:0; padding-right:8px;}
+
+  /* ---------- WHY ---------- */
+  .why-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media(max-width:860px){.why-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.why-grid{grid-template-columns:1fr;}}
+  .why-item{background:var(--overlay-soft); border:1px solid var(--line); border-radius:var(--radius); padding:22px;}
+  .why-item svg{width:24px; height:24px; color:var(--accent-2); margin-bottom:14px;}
+  .why-item h3{font-size:16px; margin:0 0 8px; font-weight:700; color:var(--ink);}
+  .why-item p{font-size:13.5px; color:var(--slate); margin:0;}
+
+  /* ---------- BOOKING ---------- */
+  .booking-panel{background:var(--bg-2); border:1px solid var(--line); border-radius:20px; padding:8px; box-shadow:0 20px 50px rgba(0,0,0,.4); max-width:640px; margin:0 auto;}
+  .tabs{display:flex; gap:6px; padding:6px; background:var(--bg-3); border-radius:14px; margin-bottom:22px;}
+  .tab-btn{flex:1; border:none; background:transparent; padding:12px; border-radius:10px; font-weight:700; font-size:14px; cursor:pointer; color:var(--slate); font-family:var(--font-main); transition:background .2s, color .2s;}
+  .tab-btn.active{background:var(--bg-2); color:var(--accent-2); box-shadow:0 3px 10px rgba(0,0,0,.3);}
+  .tab-panel{padding:14px 22px 24px;}
+  .tab-panel.hidden{display:none;}
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:520px){.form-grid{grid-template-columns:1fr;}}
+  .field{display:flex; flex-direction:column; gap:6px;}
+  .field.full{grid-column:1/-1;}
+  label{font-size:13px; font-weight:700; color:var(--ink);}
+  input, select, textarea{border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font-family:var(--font-main); font-size:14.5px; color:var(--ink); background:var(--bg-3);}
+  input:focus, select:focus, textarea:focus{outline:none; border-color:var(--accent);}
+  textarea{resize:vertical; min-height:70px;}
+  .split-picker{display:flex; align-items:center; gap:6px;}
+  .split-picker select{flex:1; padding:11px 6px; text-align:center;}
+  .split-picker span{color:var(--slate); font-weight:700;}
+  .form-actions{margin-top:22px;}
+  .form-note{font-size:12.5px; color:var(--slate); margin-top:12px; text-align:center;}
+  .wa-panel{text-align:center; padding:20px 10px 10px;}
+  .wa-panel p{color:var(--slate); font-size:14.5px; max-width:400px; margin:0 auto 22px;}
+  .wa-icon-circle{width:64px; height:64px; border-radius:50%; background:var(--accent-dim); margin:0 auto 18px; display:flex; align-items:center; justify-content:center;}
+  .wa-icon-circle svg{width:30px; height:30px; color:var(--accent-2);}
+
+  /* success state */
+  .success-panel{display:none; text-align:center; padding:36px 20px;}
+  .success-panel.visible{display:block;}
+  .success-icon{width:64px; height:64px; border-radius:50%; background:var(--accent-dim); margin:0 auto 20px; display:flex; align-items:center; justify-content:center;}
+  .success-icon svg{width:30px; height:30px; color:var(--accent-2);}
+  .success-panel h3{font-size:22px; margin:0 0 10px; color:var(--ink);}
+  .success-panel p{color:var(--slate); font-size:14.5px; max-width:380px; margin:0 auto;}
+  .form-error{display:none; background:rgba(255,90,90,.1); border:1px solid rgba(255,90,90,.35); color:#ffb3b3; padding:12px 16px; border-radius:10px; font-size:13.5px; margin-top:14px;}
+  .form-error.visible{display:block;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--bg-2); color:var(--slate); padding:56px 0 28px; border-top:1px solid var(--line);}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px; margin-bottom:40px;}
+  @media(max-width:760px){.footer-grid{grid-template-columns:1fr; gap:32px;}}
+  .footer-grid h4{color:var(--ink); font-size:14px; letter-spacing:.04em; text-transform:uppercase; font-family:var(--font-mono); margin:0 0 16px;}
+  .footer-grid p, .footer-grid a{font-size:14px; color:var(--slate); text-decoration:none; line-height:1.9;}
+  .footer-grid a:hover{color:var(--accent-2);}
+  .foot-logo{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+  .foot-logo strong{color:var(--ink); font-size:19px; font-weight:800;}
+  .social-row{display:flex; gap:12px; margin-top:16px;}
+  .social-row a{width:36px; height:36px; border-radius:50%; background:var(--overlay-mid); display:flex; align-items:center; justify-content:center;}
+  .social-row svg{width:17px; height:17px; color:var(--ink);}
+  .foot-bottom{border-top:1px solid var(--line); padding-top:24px; font-size:12.5px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+  .theme-toggle{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:var(--bg-2);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
+  }
+  .theme-toggle svg{width:18px; height:18px; color:var(--accent-2);}
+  .footer-logo-img{height:54px; width:auto; display:block;}
+  .nav-logo-icon{width:34px; height:34px; border-radius:9px; object-fit:cover; border:1px solid var(--line);}
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+  .sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="logo">
+      <img src="data:image/webp;base64,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" alt="Apex Clean" class="nav-logo-icon">
+      Apex Clean
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services" data-i18n="nav_pricing">Services</a></li>
+      <li><a href="#process" data-i18n="nav_process">Process</a></li>
+      <li><a href="#why" data-i18n="nav_why">Why us</a></li>
+      <li><a href="#booking" data-i18n="nav_booking">Booking</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button data-lang="en" class="active">EN</button>
+        <button data-lang="ru">RU</button>
+        <button data-lang="ka">KA</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+      <a href="#booking" class="btn btn-primary nav-cta" data-i18n="nav_cta">Book now</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="kicker" data-i18n="hero_kicker">Air conditioner cleaning · Tbilisi &amp; Rustavi</span>
+        <h1 data-i18n="hero_title">Your AC, professionally clean — inside and out.</h1>
+        <p class="lead" data-i18n="hero_subtitle">Full-disassembly cleaning, antibacterial treatment and a photo report for every visit. Booked in minutes, in Georgian, Russian, or English.</p>
+        <div class="hero-actions">
+          <a href="#booking" class="btn btn-primary" data-i18n="hero_cta_primary">Book a cleaning</a>
+          <a href="#services" class="btn btn-ghost" data-i18n="hero_cta_secondary">See services &amp; pricing</a>
+        </div>
+        <div class="hero-meta">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-i18n="hero_meta_2">Photo &amp; video report</span></div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.33-7-11a7 7 0 0 1 14 0c0 5.67-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-i18n="hero_meta_3">Tbilisi + Rustavi</span></div>
+        </div>
+      </div>
+
+      <div class="compare-wrap reveal">
+        <div class="compare" id="compare">
+          <div class="compare-layer compare-before">
+            <svg viewBox="0 0 600 500" preserveAspectRatio="xMidYMid slice">
+              <rect width="600" height="500" fill="#1A2431"/>
+              <rect x="120" y="150" width="360" height="130" rx="16" fill="#3A4552"/>
+              <rect x="120" y="150" width="360" height="130" rx="16" fill="none" stroke="#5A6673" stroke-width="3"/>
+              <rect x="150" y="185" width="300" height="10" fill="#5A6673"/>
+              <rect x="150" y="205" width="300" height="10" fill="#4C5763"/>
+              <rect x="150" y="225" width="300" height="10" fill="#5A6673"/>
+              <rect x="150" y="245" width="300" height="10" fill="#4C5763"/>
+              <circle cx="440" cy="165" r="6" fill="#8A7A5A"/>
+              <g opacity="0.6" fill="#8A7A5A">
+                <circle cx="180" cy="200" r="3"/><circle cx="260" cy="240" r="2.5"/><circle cx="340" cy="190" r="3.5"/>
+                <circle cx="400" cy="230" r="2"/><circle cx="220" cy="260" r="2.5"/><circle cx="300" cy="210" r="2"/>
+                <circle cx="160" cy="240" r="2"/><circle cx="430" cy="200" r="2.5"/>
+              </g>
+              <text x="300" y="330" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15" fill="#93A1AC" font-weight="600">DUST · MOLD · WEAK AIRFLOW</text>
+            </svg>
+          </div>
+          <div class="compare-layer compare-after" id="compareAfter">
+            <svg viewBox="0 0 600 500" preserveAspectRatio="xMidYMid slice">
+              <rect width="600" height="500" fill="#0F151C"/>
+              <rect x="120" y="150" width="360" height="130" rx="16" fill="#1A2431"/>
+              <rect x="120" y="150" width="360" height="130" rx="16" fill="none" stroke="#3E9BE9" stroke-width="3"/>
+              <rect x="150" y="185" width="300" height="10" rx="5" fill="#233247"/>
+              <rect x="150" y="205" width="300" height="10" rx="5" fill="#1F4B6B"/>
+              <rect x="150" y="225" width="300" height="10" rx="5" fill="#233247"/>
+              <rect x="150" y="245" width="300" height="10" rx="5" fill="#1F4B6B"/>
+              <circle cx="440" cy="165" r="6" fill="#79C6F5"/>
+              <g stroke="#3E9BE9" stroke-width="3" fill="none" opacity="0.9">
+                <path d="M170 300 C 220 340, 260 340, 300 300"/>
+                <path d="M300 310 C 340 350, 380 350, 420 310"/>
+                <path d="M230 340 C 270 375, 330 375, 370 340"/>
+              </g>
+              <text x="300" y="330" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15" fill="#79C6F5" font-weight="600" opacity="0">clean</text>
+            </svg>
+          </div>
+          <span class="compare-tag before-tag" data-i18n="compare_before">BEFORE</span>
+          <span class="compare-tag after-tag" data-i18n="compare_after">AFTER</span>
+          <div class="compare-handle" id="compareHandle">
+            <div class="compare-grip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
+            </div>
+          </div>
+          <input type="range" min="0" max="100" value="50" class="compare-range" id="compareRange" aria-label="Drag to compare before and after">
+        </div>
+        <div class="compare-caption">
+          <span data-i18n="compare_caption_left">INDOOR UNIT</span>
+          <span data-i18n="compare_caption_right">DRAG TO COMPARE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-bar">
+    <div class="wrap trust-grid">
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="trust_2">Before/after photo proof</span></div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="trust_3">Professional equipment</span></div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="trust_4">Tbilisi &amp; Rustavi coverage</span></div>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="services_eyebrow">Services &amp; pricing</span>
+        <h2 data-i18n="services_title">Fixed prices. No surprises.</h2>
+        <p data-i18n="services_subtitle">Every price is final before we arrive — what you see is what you pay.</p>
+      </div>
+      <div class="cards">
+        <div class="card reveal">
+          <h3 data-i18n="card_indoor_title">Indoor Unit Cleaning</h3>
+          <p class="desc" data-i18n="card_indoor_desc">Full disassembly, antibacterial treatment, deep wash and drain cleaning.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="card_indoor_li1">Full unit disassembly</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="card_indoor_li2">Antibacterial treatment</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="card_indoor_li3">Drain cleaning if needed</span></li>
+          </ul>
+          <div class="price">150<span>₾</span></div>
+          <a href="#booking" class="btn btn-ghost btn-block" data-i18n="card_cta">Book this</a>
+        </div>
+        <div class="card reveal">
+          <h3 data-i18n="card_outdoor_title">Outdoor Unit Cleaning</h3>
+          <p class="desc" data-i18n="card_outdoor_desc">Exterior cleaning with a full pressure check, where access allows.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="card_outdoor_li1">Exterior unit cleaning</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="card_outdoor_li2">Pressure check</span></li>
+          </ul>
+          <div class="price">100<span>₾</span></div>
+          <a href="#booking" class="btn btn-ghost btn-block" data-i18n="card_cta">Book this</a>
+        </div>
+        <div class="card featured reveal">
+          <span class="card-badge" data-i18n="card_combo_badge">Most booked</span>
+          <h3 data-i18n="card_combo_title">Indoor + Outdoor Combo</h3>
+          <p class="desc" data-i18n="card_combo_desc">Both units cleaned in one visit — the complete refresh.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="card_combo_li1">Everything from both services</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="card_combo_li2">One scheduled visit</span></li>
+          </ul>
+          <div class="price">230<span>₾</span></div>
+          <a href="#booking" class="btn btn-primary btn-block" data-i18n="card_cta">Book this</a>
+        </div>
+        <div class="card dim reveal">
+          <span class="soon-badge" data-i18n="card_upholstery_badge">Launching soon</span>
+          <h3 data-i18n="card_upholstery_title">Upholstery Cleaning</h3>
+          <p class="desc" data-i18n="card_upholstery_desc">Sofas, armchairs and mattresses — deep chemical cleaning.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="card_upholstery_li1">Armchair — 50 ₾</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="card_upholstery_li2">Sofa — 100 ₾</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="card_upholstery_li3">Mattress — 80 ₾</span></li>
+          </ul>
+          <a href="#booking" class="btn btn-ghost btn-block" data-i18n="card_notify">Notify me</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" class="process-section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="process_eyebrow">How it works</span>
+        <h2 data-i18n="process_title">From booking to a cool room, in four steps.</h2>
+      </div>
+      <div class="process-grid">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <h3 data-i18n="step1_title">Book</h3>
+          <p data-i18n="step1_desc">Choose a time right here on the site, or message us on WhatsApp.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <h3 data-i18n="step2_title">Confirm</h3>
+          <p data-i18n="step2_desc">We confirm your appointment the same day, in your language.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <h3 data-i18n="step3_title">Clean</h3>
+          <p data-i18n="step3_desc">Our technician arrives with professional equipment on time.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">04</div>
+          <h3 data-i18n="step4_title">Report</h3>
+          <p data-i18n="step4_desc">You receive before/after photos and video of the finished job.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="why_eyebrow">Why Apex Clean</span>
+        <h2 data-i18n="why_title">Built for people who don't want to gamble on a stranger.</h2>
+        <p data-i18n="why_subtitle">No vague promises — just a documented, repeatable process.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+          <h3 data-i18n="why2_title">Fixed, transparent pricing</h3>
+          <p data-i18n="why2_desc">The price you see is the price you pay — agreed before we arrive.</p>
+        </div>
+        <div class="why-item reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <h3 data-i18n="why3_title">Documented results</h3>
+          <p data-i18n="why3_desc">Every job comes with a before/after photo and video report.</p>
+        </div>
+        <div class="why-item reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4.5 8-11.8V5l-8-3-8 3v5.2C4 17.5 12 22 12 22Z"/></svg>
+          <h3 data-i18n="why4_title">Service guarantee</h3>
+          <p data-i18n="why4_desc">Not satisfied? We come back and make it right.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking">
+    <div class="wrap">
+      <div class="section-head reveal" style="margin-left:auto;margin-right:auto;text-align:center;">
+        <span class="eyebrow" data-i18n="booking_eyebrow">Booking</span>
+        <h2 data-i18n="booking_title">Pick a time, or just message us.</h2>
+        <p data-i18n="booking_subtitle" style="margin:0 auto;">Booking through the site sends your request straight to us — no app to install.</p>
+      </div>
+
+      <div class="booking-panel reveal">
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="schedule" data-i18n="tab_schedule">Pick a time</button>
+          <button class="tab-btn" data-tab="whatsapp" data-i18n="tab_whatsapp">Message on WhatsApp</button>
+        </div>
+
+        <div class="tab-panel" id="panel-schedule">
+          <form id="bookingForm">
+            <div class="form-grid">
+              <div class="field">
+                <label for="f-name" data-i18n="form_name">Full name</label>
+                <input type="text" id="f-name" required>
+              </div>
+              <div class="field">
+                <label for="f-phone" data-i18n="form_phone">Phone number</label>
+                <input type="tel" id="f-phone" required>
+              </div>
+              <div class="field">
+                <label for="f-service" data-i18n="form_service">Service</label>
+                <select id="f-service">
+                  <option value="Indoor unit cleaning (150 ₾)" data-i18n="form_service_indoor">Indoor unit cleaning (150 ₾)</option>
+                  <option value="Outdoor unit cleaning (100 ₾)" data-i18n="form_service_outdoor">Outdoor unit cleaning (100 ₾)</option>
+                  <option value="Combo indoor+outdoor (230 ₾)" data-i18n="form_service_combo">Combo indoor + outdoor (230 ₾)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-area" data-i18n="form_area">Area</label>
+                <select id="f-area">
+                  <option value="Tbilisi" data-i18n="form_area_tbilisi">Tbilisi</option>
+                  <option value="Rustavi" data-i18n="form_area_rustavi">Rustavi</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="f-address" data-i18n="form_address">Street address</label>
+                <input type="text" id="f-address" required>
+              </div>
+              <div class="field">
+                <label for="f-entrance" data-i18n="form_entrance">Entrance number (optional)</label>
+                <input type="text" id="f-entrance">
+              </div>
+              <div class="field">
+                <label for="f-apartment" data-i18n="form_apartment">Apartment number (optional)</label>
+                <input type="text" id="f-apartment">
+              </div>
+              <div class="field full">
+                <label for="f-code" data-i18n="form_code">Elevator / door code (optional)</label>
+                <input type="text" id="f-code">
+              </div>
+              <div class="field">
+                <label data-i18n="form_date">Preferred date</label>
+                <div class="split-picker">
+                  <select id="f-day" aria-label="Day"></select>
+                  <span>.</span>
+                  <select id="f-month" aria-label="Month"></select>
+                  <span>.</span>
+                  <select id="f-year" aria-label="Year"></select>
+                </div>
+              </div>
+              <div class="field">
+                <label data-i18n="form_time">Preferred time</label>
+                <div class="split-picker">
+                  <select id="f-hour" aria-label="Hour"></select>
+                  <span>:</span>
+                  <select id="f-minute" aria-label="Minute"></select>
+                </div>
+              </div>
+              <div class="field full">
+                <label for="f-notes" data-i18n="form_notes">Notes (optional)</label>
+                <textarea id="f-notes" data-i18n-placeholder="form_notes_placeholder" placeholder="e.g. AC brand, floor number, access details"></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary btn-block" id="submitBtn" data-i18n="form_submit">Send booking request</button>
+              <p class="form-note" data-i18n="form_note">We'll confirm by phone or WhatsApp shortly after you submit.</p>
+              <div class="form-error" id="formError" data-i18n="form_error">Something went wrong sending your request. Please try WhatsApp instead.</div>
+            </div>
+          </form>
+
+          <div class="success-panel" id="successPanel">
+            <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg></div>
+            <h3 data-i18n="success_title">Done!</h3>
+            <p data-i18n="success_desc">Your request has been sent. We'll contact you shortly to confirm the time.</p>
+          </div>
+        </div>
+
+        <div class="tab-panel hidden" id="panel-whatsapp">
+          <div class="wa-panel">
+            <div class="wa-icon-circle">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A8.9 8.9 0 0 0 12 4a8.9 8.9 0 0 0-8.9 8.9c0 1.6.4 3.1 1.2 4.4L4 21l3.8-1c1.3.7 2.8 1.1 4.2 1.1A8.9 8.9 0 0 0 21 12.9a8.9 8.9 0 0 0-3.4-6.6ZM12 19.4c-1.3 0-2.6-.4-3.7-1l-.3-.2-2.2.6.6-2.1-.2-.3A7.3 7.3 0 1 1 12 19.4Zm4-5.5c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1l-.7.8c-.1.2-.3.2-.5.1-.7-.3-1.5-.8-2.1-1.5-.5-.5-.8-1.1-.9-1.4-.1-.2 0-.4.1-.5l.4-.5c.1-.1.1-.3.1-.4 0-.1-.5-1.3-.7-1.7-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.1 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.6.6.2 1.2.1 1.6.1.5-.1 1.3-.6 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg>
+            </div>
+            <p data-i18n="wa_desc">Tap below to open WhatsApp with a message already filled in — just hit send.</p>
+            <a id="waLink" href="#" target="_blank" class="btn btn-primary" data-i18n="wa_button">Open WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="foot-logo">
+          <img src="data:image/webp;base64,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" alt="Apex Clean" class="footer-logo-img">
+        </div>
+        <p data-i18n="footer_about">Professional air conditioner cleaning in Tbilisi and Rustavi. Upholstery cleaning launching soon.</p>
+        <div class="social-row">
+          <a href="https://instagram.com/apexcleangeorgia" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.4" cy="6.6" r="1"/></svg></a>
+          <a href="https://www.facebook.com/profile.php?id=61592539919184" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9h3V6h-3a3 3 0 0 0-3 3v2H9v3h2v6h3v-6h3l1-3h-4v-2a1 1 0 0 1 1-1Z"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A8.9 8.9 0 0 0 12 4a8.9 8.9 0 0 0-8.9 8.9c0 1.6.4 3.1 1.2 4.4L4 21l3.8-1c1.3.7 2.8 1.1 4.2 1.1A8.9 8.9 0 0 0 21 12.9a8.9 8.9 0 0 0-3.4-6.6ZM12 19.4c-1.3 0-2.6-.4-3.7-1l-.3-.2-2.2.6.6-2.1-.2-.3A7.3 7.3 0 1 1 12 19.4Z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4 data-i18n="footer_h_contact">Contact</h4>
+        <p><a href="tel:+995501001794">+995 501 00 17 94</a></p>
+        <p><a href="mailto:apexcleangeorgia@gmail.com">apexcleangeorgia@gmail.com</a></p>
+      </div>
+      <div>
+        <h4 data-i18n="footer_h_coverage">Coverage</h4>
+        <p data-i18n="footer_coverage">Tbilisi and Rustavi. Working hours: 09:00–20:00, 7 days a week.</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span data-i18n="footer_rights">© 2026 Apex Clean. All rights reserved.</span>
+      <span data-i18n="footer_tag">Clean air. Clear process.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+/* =================================================================
+   EMAILJS SETUP — replace these 3 values with your own, see chat
+   instructions for how to get them from emailjs.com (free plan).
+   ================================================================= */
+const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
+/* ---------------- i18n ---------------- */
+const translations = {
+  en: {
+    nav_pricing:"Services", nav_process:"Process", nav_why:"Why us", nav_booking:"Booking", nav_contact:"Contact", nav_cta:"Book now",
+    hero_kicker:"Air conditioner cleaning · Tbilisi &amp; Rustavi",
+    hero_title:"Your AC, professionally clean — inside and out.",
+    hero_subtitle:"Full-disassembly cleaning, antibacterial treatment and a photo report for every visit. Booked in minutes, in Georgian, Russian, or English.",
+    hero_cta_primary:"Book a cleaning", hero_cta_secondary:"See services &amp; pricing",
+    hero_meta_1:"GE / RU / EN service", hero_meta_2:"Photo &amp; video report", hero_meta_3:"Tbilisi + Rustavi",
+    compare_before:"BEFORE", compare_after:"AFTER", compare_caption_left:"INDOOR UNIT", compare_caption_right:"DRAG TO COMPARE",
+    trust_1:"Trilingual: GE / RU / EN", trust_2:"Before/after photo proof", trust_3:"Professional equipment", trust_4:"Tbilisi &amp; Rustavi coverage",
+    services_eyebrow:"Services & pricing", services_title:"Fixed prices. No surprises.", services_subtitle:"Every price is final before we arrive — what you see is what you pay.",
+    card_indoor_title:"Indoor Unit Cleaning", card_indoor_desc:"Full disassembly, antibacterial treatment, deep wash and drain cleaning.",
+    card_indoor_li1:"Full unit disassembly", card_indoor_li2:"Antibacterial treatment", card_indoor_li3:"Drain cleaning if needed",
+    card_outdoor_title:"Outdoor Unit Cleaning", card_outdoor_desc:"Exterior cleaning with a full pressure check, where access allows.",
+    card_outdoor_li1:"Exterior unit cleaning", card_outdoor_li2:"Pressure check",
+    card_combo_badge:"Most booked", card_combo_title:"Indoor + Outdoor Combo", card_combo_desc:"Both units cleaned in one visit — the complete refresh.",
+    card_combo_li1:"Everything from both services", card_combo_li2:"One scheduled visit",
+    card_upholstery_badge:"Launching soon", card_upholstery_title:"Upholstery Cleaning", card_upholstery_desc:"Sofas, armchairs and mattresses — deep chemical cleaning.",
+    card_upholstery_li1:"Armchair — 50 ₾", card_upholstery_li2:"Sofa — 100 ₾", card_upholstery_li3:"Mattress — 80 ₾",
+    card_cta:"Book this", card_notify:"Notify me",
+    process_eyebrow:"How it works", process_title:"From booking to a cool room, in four steps.",
+    step1_title:"Book", step1_desc:"Choose a time right here on the site, or message us on WhatsApp.",
+    step2_title:"Confirm", step2_desc:"We confirm your appointment the same day, in your language.",
+    step3_title:"Clean", step3_desc:"Our technician arrives with professional equipment on time.",
+    step4_title:"Report", step4_desc:"You receive before/after photos and video of the finished job.",
+    why_eyebrow:"Why Apex Clean", why_title:"Built for people who don't want to gamble on a stranger.", why_subtitle:"No vague promises — just a documented, repeatable process.",
+    why1_title:"Trilingual service", why1_desc:"We answer in Georgian, Russian, or English — fast.",
+    why2_title:"Fixed, transparent pricing", why2_desc:"The price you see is the price you pay — agreed before we arrive.",
+    why3_title:"Documented results", why3_desc:"Every job comes with a before/after photo and video report.",
+    why4_title:"Service guarantee", why4_desc:"Not satisfied? We come back and make it right.",
+    booking_eyebrow:"Booking", booking_title:"Pick a time, or just message us.", booking_subtitle:"Booking through the site sends your request straight to us — no app to install.",
+    tab_schedule:"Pick a time", tab_whatsapp:"Message on WhatsApp",
+    form_name:"Full name", form_phone:"Phone number", form_service:"Service", form_area:"Area", form_date:"Preferred date", form_time:"Preferred time",
+    form_notes:"Notes (optional)", form_notes_placeholder:"e.g. AC brand, floor number, access details",
+    form_service_indoor:"Indoor unit cleaning (150 ₾)", form_service_outdoor:"Outdoor unit cleaning (100 ₾)", form_service_combo:"Combo indoor + outdoor (230 ₾)",
+    form_area_tbilisi:"Tbilisi", form_area_rustavi:"Rustavi",
+    form_address:"Street address", form_entrance:"Entrance number (optional)", form_apartment:"Apartment number (optional)", form_code:"Elevator / door code (optional)",
+    form_submit:"Send booking request",
+    form_note:"We'll confirm by phone or WhatsApp shortly after you submit.",
+    form_error:"Something went wrong sending your request. Please try WhatsApp instead.",
+    success_title:"Done!", success_desc:"Your request has been sent. We'll contact you shortly to confirm the time.",
+    wa_desc:"Tap below to open WhatsApp with a message already filled in — just hit send.", wa_button:"Open WhatsApp",
+    footer_about:"Professional air conditioner cleaning in Tbilisi and Rustavi. Upholstery cleaning launching soon.",
+    footer_h_contact:"Contact", footer_h_coverage:"Coverage", footer_coverage:"Tbilisi and Rustavi. Working hours: 09:00–20:00, 7 days a week.",
+    footer_rights:"© 2026 Apex Clean. All rights reserved.", footer_tag:"Clean air. Clear process."
+  },
+  ru: {
+    nav_pricing:"Услуги", nav_process:"Процесс", nav_why:"Почему мы", nav_booking:"Запись", nav_contact:"Контакты", nav_cta:"Записаться",
+    hero_kicker:"Чистка кондиционеров · Тбилиси и Рустави",
+    hero_title:"Ваш кондиционер — профессионально чист снаружи и внутри.",
+    hero_subtitle:"Полный разбор блока, антибактериальная обработка и фотоотчёт после каждого визита. Запись за пару минут — на грузинском, русском или английском.",
+    hero_cta_primary:"Записаться на чистку", hero_cta_secondary:"Услуги и цены",
+    hero_meta_1:"Сервис на GE / RU / EN", hero_meta_2:"Фото и видео отчёт", hero_meta_3:"Тбилиси + Рустави",
+    compare_before:"ДО", compare_after:"ПОСЛЕ", compare_caption_left:"ВНУТРЕННИЙ БЛОК", compare_caption_right:"ПЕРЕТАЩИТЕ ДЛЯ СРАВНЕНИЯ",
+    trust_1:"3 языка: GE / RU / EN", trust_2:"Фото до/после", trust_3:"Профессиональное оборудование", trust_4:"Тбилиси и Рустави",
+    services_eyebrow:"Услуги и цены", services_title:"Фиксированные цены. Без сюрпризов.", services_subtitle:"Цена согласована заранее — сколько сказали, столько и заплатите.",
+    card_indoor_title:"Чистка внутреннего блока", card_indoor_desc:"Полный разбор, антибактериальная обработка, глубокая промывка и очистка дренажа.",
+    card_indoor_li1:"Полный разбор блока", card_indoor_li2:"Антибактериальная обработка", card_indoor_li3:"Очистка дренажа при необходимости",
+    card_outdoor_title:"Чистка внешнего блока", card_outdoor_desc:"Наружная чистка с замером давления, если есть доступ.",
+    card_outdoor_li1:"Чистка внешнего блока", card_outdoor_li2:"Замер давления",
+    card_combo_badge:"Популярный выбор", card_combo_title:"Комплекс: внутренний + внешний", card_combo_desc:"Оба блока за один визит — полное обновление системы.",
+    card_combo_li1:"Всё из обеих услуг", card_combo_li2:"Один визит мастера",
+    card_upholstery_badge:"Скоро запуск", card_upholstery_title:"Химчистка мебели", card_upholstery_desc:"Диваны, кресла и матрасы — глубокая химчистка.",
+    card_upholstery_li1:"Кресло — 50 ₾", card_upholstery_li2:"Диван — 100 ₾", card_upholstery_li3:"Матрас — 80 ₾",
+    card_cta:"Записаться", card_notify:"Сообщить о запуске",
+    process_eyebrow:"Как это работает", process_title:"От заявки до прохлады в комнате — 4 шага.",
+    step1_title:"Заявка", step1_desc:"Выберите время прямо на сайте или напишите нам в WhatsApp.",
+    step2_title:"Подтверждение", step2_desc:"Подтверждаем визит в тот же день, на вашем языке.",
+    step3_title:"Чистка", step3_desc:"Мастер приезжает вовремя с профессиональным оборудованием.",
+    step4_title:"Отчёт", step4_desc:"Вы получаете фото и видео до/после выполненной работы.",
+    why_eyebrow:"Почему Apex Clean", why_title:"Для тех, кто не хочет рисковать с незнакомым мастером.", why_subtitle:"Никаких расплывчатых обещаний — только понятный, повторяемый процесс.",
+    why1_title:"Сервис на 3 языках", why1_desc:"Отвечаем на грузинском, русском или английском — быстро.",
+    why2_title:"Честная фиксированная цена", why2_desc:"Цена согласована заранее и не меняется по приезде.",
+    why3_title:"Задокументированный результат", why3_desc:"К каждой работе — фото и видео отчёт до/после.",
+    why4_title:"Гарантия на услугу", why4_desc:"Не понравилось? Приедем и всё исправим.",
+    booking_eyebrow:"Запись", booking_title:"Выберите время или просто напишите нам.", booking_subtitle:"Запись через сайт сразу приходит к нам — ничего устанавливать не нужно.",
+    tab_schedule:"Выбрать время", tab_whatsapp:"Написать в WhatsApp",
+    form_name:"Имя", form_phone:"Номер телефона", form_service:"Услуга", form_area:"Район", form_date:"Желаемая дата", form_time:"Желаемое время",
+    form_notes:"Комментарий (необязательно)", form_notes_placeholder:"например: марка кондиционера, этаж, доступ к блоку",
+    form_service_indoor:"Внутренний блок (150 ₾)", form_service_outdoor:"Внешний блок (100 ₾)", form_service_combo:"Комплекс: внутр. + внешн. (230 ₾)",
+    form_area_tbilisi:"Тбилиси", form_area_rustavi:"Рустави",
+    form_address:"Адрес", form_entrance:"Номер подъезда (необязательно)", form_apartment:"Номер квартиры (необязательно)", form_code:"Код домофона/лифта (необязательно)",
+    form_submit:"Отправить заявку",
+    form_note:"Мы подтвердим запись по телефону или в WhatsApp вскоре после отправки.",
+    form_error:"Не удалось отправить заявку. Попробуйте написать в WhatsApp.",
+    success_title:"Готово!", success_desc:"Ваша заявка отправлена. Мы скоро свяжемся, чтобы подтвердить время визита.",
+    wa_desc:"Нажмите кнопку — откроется WhatsApp с уже готовым сообщением, останется только отправить.", wa_button:"Открыть WhatsApp",
+    footer_about:"Профессиональная чистка кондиционеров в Тбилиси и Рустави. Скоро — химчистка мебели.",
+    footer_h_contact:"Контакты", footer_h_coverage:"Зона обслуживания", footer_coverage:"Тбилиси и Рустави. Часы работы: 09:00–20:00, ежедневно.",
+    footer_rights:"© 2026 Apex Clean. Все права защищены.", footer_tag:"Чисто. Прозрачно."
+  },
+  ka: {
+    nav_pricing:"სერვისები", nav_process:"პროცესი", nav_why:"რატომ ჩვენ", nav_booking:"ჯავშანი", nav_contact:"კონტაქტი", nav_cta:"დაჯავშნა",
+    hero_kicker:"კონდიციონერის წმენდა · თბილისი და რუსთავი",
+    hero_title:"თქვენი კონდიციონერი — პროფესიონალურად სუფთა შიგნიდან და გარედან.",
+    hero_subtitle:"სრული დაშლა, ანტიბაქტერიული დამუშავება და ფოტო ანგარიში ყოველ ვიზიტზე. დაჯავშნა რამდენიმე წუთში — ქართულ, რუსულ ან ინგლისურ ენაზე.",
+    hero_cta_primary:"დაჯავშნეთ წმენდა", hero_cta_secondary:"სერვისები და ფასები",
+    hero_meta_1:"მომსახურება GE / RU / EN", hero_meta_2:"ფოტო და ვიდეო ანგარიში", hero_meta_3:"თბილისი + რუსთავი",
+    compare_before:"მანამდე", compare_after:"შემდეგ", compare_caption_left:"შიდა ბლოკი", compare_caption_right:"გადაათრიეთ შედარებისთვის",
+    trust_1:"3 ენა: GE / RU / EN", trust_2:"ფოტო მანამდე/შემდეგ", trust_3:"პროფესიონალური აღჭურვილობა", trust_4:"თბილისი და რუსთავი",
+    services_eyebrow:"სერვისები და ფასები", services_title:"ფიქსირებული ფასები. სიურპრიზების გარეშე.", services_subtitle:"ფასი დადასტურებულია წინასწარ — რასაც ხედავთ, იმას გადაიხდით.",
+    card_indoor_title:"შიდა ბლოკის წმენდა", card_indoor_desc:"სრული დაშლა, ანტიბაქტერიული დამუშავება, ღრმა რეცხვა და დრენაჟის წმენდა.",
+    card_indoor_li1:"ბლოკის სრული დაშლა", card_indoor_li2:"ანტიბაქტერიული დამუშავება", card_indoor_li3:"დრენაჟის წმენდა საჭიროების შემთხვევაში",
+    card_outdoor_title:"გარე ბლოკის წმენდა", card_outdoor_desc:"გარე წმენდა წნევის შემოწმებით, წვდომის შემთხვევაში.",
+    card_outdoor_li1:"გარე ბლოკის წმენდა", card_outdoor_li2:"წნევის შემოწმება",
+    card_combo_badge:"ყველაზე პოპულარული", card_combo_title:"კომპლექსი: შიდა + გარე", card_combo_desc:"ორივე ბლოკი ერთ ვიზიტში — სრული განახლება.",
+    card_combo_li1:"ორივე სერვისის ჩათვლით", card_combo_li2:"ერთი დაგეგმილი ვიზიტი",
+    card_upholstery_badge:"მალე დაიწყება", card_upholstery_title:"ავეჯის ქიმწმენდა", card_upholstery_desc:"დივნები, სავარძლები და მატრასები — ღრმა ქიმწმენდა.",
+    card_upholstery_li1:"სავარძელი — 50 ₾", card_upholstery_li2:"დივანი — 100 ₾", card_upholstery_li3:"მატრასი — 80 ₾",
+    card_cta:"დაჯავშნა", card_notify:"შემატყობინეთ",
+    process_eyebrow:"როგორ მუშაობს", process_title:"ჯავშნიდან გრილ ოთახამდე — 4 ნაბიჯად.",
+    step1_title:"ჯავშანი", step1_desc:"აირჩიეთ დრო პირდაპირ საიტზე ან მოგვწერეთ WhatsApp-ზე.",
+    step2_title:"დადასტურება", step2_desc:"ვადასტურებთ ვიზიტს იმავე დღეს, თქვენს ენაზე.",
+    step3_title:"წმენდა", step3_desc:"ჩვენი ტექნიკოსი მოდის დროულად პროფესიონალური აღჭურვილობით.",
+    step4_title:"ანგარიში", step4_desc:"იღებთ ფოტო და ვიდეო ანგარიშს დასრულებულ სამუშაოზე.",
+    why_eyebrow:"რატომ Apex Clean", why_title:"მათთვის, ვინც არ სურს უცნობზე რისკის აღება.", why_subtitle:"ბუნდოვანი დაპირებების გარეშე — მხოლოდ გამჭვირვალე, განმეორებადი პროცესი.",
+    why1_title:"მომსახურება 3 ენაზე", why1_desc:"ვპასუხობთ ქართულად, რუსულად ან ინგლისურად — სწრაფად.",
+    why2_title:"გამჭვირვალე ფასი", why2_desc:"ფასი შეთანხმებულია წინასწარ და არ იცვლება ვიზიტისას.",
+    why3_title:"დოკუმენტირებული შედეგი", why3_desc:"ყოველ სამუშაოს ახლავს ფოტო და ვიდეო ანგარიში.",
+    why4_title:"მომსახურების გარანტია", why4_desc:"არ მოგეწონათ? დავბრუნდებით და გამოვასწორებთ.",
+    booking_eyebrow:"ჯავშანი", booking_title:"აირჩიეთ დრო ან უბრალოდ მოგვწერეთ.", booking_subtitle:"საიტიდან ჯავშანი პირდაპირ ჩვენამდე მოდის — არაფრის დაყენება არ არის საჭირო.",
+    tab_schedule:"დროის არჩევა", tab_whatsapp:"წერილი WhatsApp-ზე",
+    form_name:"სახელი და გვარი", form_phone:"ტელეფონის ნომერი", form_service:"სერვისი", form_area:"რაიონი", form_date:"სასურველი თარიღი", form_time:"სასურველი დრო",
+    form_notes:"შენიშვნა (არასავალდებულო)", form_notes_placeholder:"მაგ: კონდიციონერის მარკა, სართული, წვდომის დეტალები",
+    form_service_indoor:"შიდა ბლოკი (150 ₾)", form_service_outdoor:"გარე ბლოკი (100 ₾)", form_service_combo:"კომპლექსი (230 ₾)",
+    form_area_tbilisi:"თბილისი", form_area_rustavi:"რუსთავი",
+    form_address:"მისამართი", form_entrance:"სადარბაზოს ნომერი (არასავალდებულო)", form_apartment:"ბინის ნომერი (არასავალდებულო)", form_code:"კარიბჭის/ლიფტის კოდი (არასავალდებულო)",
+    form_submit:"ჯავშნის გაგზავნა",
+    form_note:"დაგიდასტურებთ ტელეფონით ან WhatsApp-ით გაგზავნისთანავე.",
+    form_error:"ჯავშნის გაგზავნა ვერ მოხერხდა. სცადეთ WhatsApp-ის საშუალებით.",
+    success_title:"მზადაა!", success_desc:"თქვენი ჯავშანი გაგზავნილია. მალე დაგიკავშირდებით დროის დასადასტურებლად.",
+    wa_desc:"დააჭირეთ ღილაკს — გაიხსნება WhatsApp მზა შეტყობინებით, დარჩენილია მხოლოდ გაგზავნა.", wa_button:"WhatsApp-ის გახსნა",
+    footer_about:"პროფესიონალური კონდიციონერის წმენდა თბილისსა და რუსთავში. მალე — ავეჯის ქიმწმენდა.",
+    footer_h_contact:"კონტაქტი", footer_h_coverage:"მომსახურების ზონა", footer_coverage:"თბილისი და რუსთავი. სამუშაო საათები: 09:00–20:00, ყოველდღე.",
+    footer_rights:"© 2026 Apex Clean. ყველა უფლება დაცულია.", footer_tag:"სუფთა ჰაერი. გამჭვირვალე პროცესი."
+  }
+};
+
+let currentLang = 'en';
+
+/* ---------------- Theme toggle (dark/light, in-memory only) ---------------- */
+const DEFAULT_THEME = 'dark'; // change to 'light' if you want light mode by default
+let currentTheme = DEFAULT_THEME;
+const themeToggleBtn = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const moonPath = 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z';
+const sunPath = 'M12 4V2M12 22v-2M4.93 4.93 3.51 3.51M20.49 20.49l-1.42-1.42M4 12H2M22 12h-2M4.93 19.07l-1.42 1.42M20.49 3.51l-1.42 1.42M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z';
+function applyTheme(theme){
+  currentTheme = theme;
+  document.documentElement.setAttribute('data-theme', theme);
+  themeIcon.innerHTML = `<path d="${theme==='light' ? sunPath : moonPath}"/>`;
+}
+themeToggleBtn.addEventListener('click', ()=> applyTheme(currentTheme==='light' ? 'dark' : 'light'));
+applyTheme(DEFAULT_THEME);
+
+function applyLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  const dict = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-placeholder');
+    if(dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
+  });
+  document.querySelectorAll('.lang-switch button').forEach(btn=>{
+    btn.classList.toggle('active', btn.getAttribute('data-lang')===lang);
+  });
+}
+document.querySelectorAll('.lang-switch button').forEach(btn=>{
+  btn.addEventListener('click', ()=> applyLang(btn.getAttribute('data-lang')));
+});
+
+/* ---------------- Compare slider ---------------- */
+const compareRange = document.getElementById('compareRange');
+const compareAfter = document.getElementById('compareAfter');
+const compareHandle = document.getElementById('compareHandle');
+function setCompare(val){
+  compareAfter.style.clipPath = `inset(0 ${100-val}% 0 0)`;
+  compareHandle.style.left = val + '%';
+}
+compareRange.addEventListener('input', e=> setCompare(e.target.value));
+setCompare(50);
+
+/* ---------------- Tabs ---------------- */
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const target = btn.getAttribute('data-tab');
+    document.getElementById('panel-schedule').classList.toggle('hidden', target!=='schedule');
+    document.getElementById('panel-whatsapp').classList.toggle('hidden', target!=='whatsapp');
+  });
+});
+
+/* ---------------- Date / time pickers (24h, DD.MM.YYYY) ---------------- */
+function pad(n){ return n.toString().padStart(2,'0'); }
+
+const daySelect = document.getElementById('f-day');
+const monthSelect = document.getElementById('f-month');
+const yearSelect = document.getElementById('f-year');
+const hourSelect = document.getElementById('f-hour');
+const minuteSelect = document.getElementById('f-minute');
+
+const today = new Date();
+for(let d=1; d<=31; d++){ daySelect.add(new Option(pad(d), pad(d))); }
+for(let m=1; m<=12; m++){ monthSelect.add(new Option(pad(m), pad(m))); }
+for(let y=today.getFullYear(); y<=today.getFullYear()+1; y++){ yearSelect.add(new Option(y, y)); }
+for(let h=9; h<=20; h++){ hourSelect.add(new Option(pad(h), pad(h))); }
+["00","15","30","45"].forEach(m=> minuteSelect.add(new Option(m,m)));
+
+daySelect.value = pad(today.getDate());
+monthSelect.value = pad(today.getMonth()+1);
+yearSelect.value = today.getFullYear();
+hourSelect.value = "10";
+minuteSelect.value = "00";
+
+/* ---------------- Booking form submit (EmailJS, no WhatsApp redirect) ---------------- */
+const WHATSAPP_NUMBER = "995501001794"; // TODO: replace if this isn't the right WhatsApp number
+
+/* Optional: logs every booking into a Google Sheet so you can review them
+   in the admin.html dashboard. See chat instructions for the Apps Script
+   to deploy and paste its URL below. Leave as-is to skip this. */
+const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw17wbeBkb_4BKLkytBxlMu7ut1YOobFrnZiST_gqHFBJ050s1oq_pWhG2VScN48utE/exec";
+
+function logToSheet(params){
+  if (SHEET_WEBHOOK_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL") return;
+  fetch(SHEET_WEBHOOK_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type':'text/plain'},
+    body: JSON.stringify({ ...params, submittedAt: new Date().toISOString() })
+  }).catch(()=>{ /* best-effort only, never blocks the booking */ });
+}
+
+function buildWaLink(message){
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+const bookingForm = document.getElementById('bookingForm');
+const submitBtn = document.getElementById('submitBtn');
+const formError = document.getElementById('formError');
+const successPanel = document.getElementById('successPanel');
+
+bookingForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  formError.classList.remove('visible');
+
+  const name = document.getElementById('f-name').value;
+  const phone = document.getElementById('f-phone').value;
+  const service = document.getElementById('f-service').value;
+  const area = document.getElementById('f-area').value;
+  const address = document.getElementById('f-address').value;
+  const entrance = document.getElementById('f-entrance').value;
+  const apartment = document.getElementById('f-apartment').value;
+  const code = document.getElementById('f-code').value;
+  const date = `${daySelect.value}.${monthSelect.value}.${yearSelect.value}`;
+  const time = `${hourSelect.value}:${minuteSelect.value}`;
+  const notes = document.getElementById('f-notes').value;
+
+  const params = {
+    name, phone, service, area, address,
+    entrance: entrance || '-', apartment: apartment || '-', code: code || '-',
+    date, time, notes: notes || '-'
+  };
+
+  const waFallbackText = `Booking request:\nName: ${name}\nPhone: ${phone}\nService: ${service}\nArea: ${area}\nAddress: ${address}\nEntrance: ${entrance||'-'}\nApartment: ${apartment||'-'}\nCode: ${code||'-'}\nDate: ${date}\nTime: ${time}\nNotes: ${notes||'-'}`;
+
+  logToSheet(params);
+
+  if (!window.emailjs || EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY") {
+    // EmailJS not configured yet — nothing to send to. Show the form error
+    // with a WhatsApp fallback so no booking is lost.
+    formError.classList.add('visible');
+    formError.innerHTML = translations[currentLang].form_error + ' <a href="' + buildWaLink(waFallbackText) + '" target="_blank" style="text-decoration:underline;">WhatsApp</a>';
+    return;
+  }
+
+  submitBtn.disabled = true;
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
+    .then(()=>{
+      bookingForm.style.display = 'none';
+      successPanel.classList.add('visible');
+    })
+    .catch(()=>{
+      submitBtn.disabled = false;
+      formError.classList.add('visible');
+      formError.innerHTML = translations[currentLang].form_error + ' <a href="' + buildWaLink(waFallbackText) + '" target="_blank" style="text-decoration:underline;">WhatsApp</a>';
+    });
+});
+
+document.getElementById('waLink').addEventListener('click', function(e){
+  e.preventDefault();
+  const message = "Hello Apex Clean! I'd like to book an AC cleaning. Could you tell me the next available time?";
+  window.open(buildWaLink(message), '_blank');
+});
+
+/* ---------------- Reveal on scroll ---------------- */
+const revealEls = document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+} else {
+  revealEls.forEach(el=>el.classList.add('visible'));
+}
+</script>
+</body>
+</html>
