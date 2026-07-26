@@ -876,7 +876,13 @@ bookingForm.addEventListener('submit', function(e){
 
   logToSheet(params);
 
-  
+    if (!window.emailjs || EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY") {
+    // EmailJS not configured yet — nothing to send to. Show the form error
+    // with a WhatsApp fallback so no booking is lost.
+    formError.classList.add('visible');
+    formError.innerHTML = translations[currentLang].form_error + ' <a href="' + buildWaLink(waFallbackText) + '" target="_blank" style="text-decoration:underline;">WhatsApp</a>';
+    return;
+  }
 
   submitBtn.disabled = true;
   emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
